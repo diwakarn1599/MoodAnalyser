@@ -9,11 +9,13 @@ namespace MoodAnalyser
 
         ExceptionType type;
 
+        //Enum for excpetion types
         public enum ExceptionType
         {
             NULL_EXCEPTION,EMPTY_EXCEPTION,CLASS_NOT_FOUND,CONSTRUCTOR_NOT_FOUND
         }
 
+        //parameterized constructor
         public CustomMoodAnalyser(ExceptionType type, string message ): base(message)
         {
             this.type = type;
