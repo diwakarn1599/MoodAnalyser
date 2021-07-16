@@ -39,5 +39,28 @@ namespace MoodAnalyser
             }
 
         }
+
+        public Object CreateMoodAnalyserParameterizedConstructor(string className, string constructorName, string message)
+        {
+            Type type = typeof(MoodAnalyserCheck);
+            if (type.Name.Equals(className) || type.FullName.Equals(className))
+            {
+                if (type.Name.Equals(constructorName))
+                {
+
+                    ConstructorInfo constructorInfo = type.GetConstructor(new[] { typeof(string) });
+                    var obj = constructorInfo.Invoke(new object[] { message });
+                    return obj;
+                }
+                else
+                {
+                    throw new CustomMoodAnalyser(CustomMoodAnalyser.ExceptionType.CLASS_NOT_FOUND, "Class Not Found");
+                }
+            }
+            else
+            {
+                throw new CustomMoodAnalyser(CustomMoodAnalyser.ExceptionType.CONSTRUCTOR_NOT_FOUND, "Constructor not Found");
+            }
+        }
     }
 }

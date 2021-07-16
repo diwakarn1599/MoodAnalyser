@@ -9,7 +9,7 @@ namespace MoodAnalyserTestProject
     [TestClass]
     public class UnitTest1
     {
-        MoodAnalyserCheck mac,Mac, macNull, macEmpty,macObj;
+        MoodAnalyserCheck mac,Mac, macNull, macEmpty,macObj, macPC;
         string msg;
         [TestInitialize]
         public void Setup()
@@ -20,6 +20,7 @@ namespace MoodAnalyserTestProject
             macNull = new MoodAnalyserCheck(null);
             macEmpty = new MoodAnalyserCheck(string.Empty);
             macObj = new MoodAnalyserCheck();
+            macPC = new MoodAnalyserCheck("I am in a happy mood");
         }
         //***************************************************HAPPY*****************************************************
         [TestMethod]
@@ -88,6 +89,9 @@ namespace MoodAnalyserTestProject
             
         }
         //**************************************************Object***********************************************
+        /// <summary>
+        /// TC 1 Class name and constructore name
+        /// </summary>
         [TestMethod]
         [TestCategory("objectCreation")]
         public void ObjectCreationUsingReflection()
@@ -108,5 +112,117 @@ namespace MoodAnalyserTestProject
             obj.Equals(macObj);
 
         }
+        /// <summary>
+        /// TC 2 class not found
+        /// </summary>
+        [TestMethod]
+        [TestCategory("objectCreationClassException")]
+        public void ObjectCreationUsingReflectionClassException()
+        {
+
+            Object obj = null;
+
+            try
+            {
+                MoodAnalyserFactory moodAnalyse = new MoodAnalyserFactory();
+                obj = moodAnalyse.CreateMoodAnalyserObject("MoodAnalyser.MoodAnalyserCheckT", "MoodAnalyserCheckT");
+
+            }
+            catch (CustomMoodAnalyser e)
+            {
+                throw new Exception(e.Message);
+            }
+            obj.Equals(macObj);
+
+        }
+        /// <summary>
+        /// TC3 constructor not found
+        /// </summary>
+        [TestMethod]
+        [TestCategory("objectCreationConstructorException")]
+        public void ObjectCreationUsingReflectionConstructorException()
+        {
+
+            Object obj = null;
+
+            try
+            {
+                MoodAnalyserFactory moodAnalyse = new MoodAnalyserFactory();
+                obj = moodAnalyse.CreateMoodAnalyserObject("MoodAnalyser.MoodAnalyserCheck", "MoodAnalyserChec");
+
+            }
+            catch (CustomMoodAnalyser e)
+            {
+                throw new Exception(e.Message);
+            }
+            obj.Equals(macObj);
+
+        }
+
+        //*****************************************PARAMETERIZED CONSTRUCTOR******************************************************
+        /// <summary>
+        /// TC1 - Object creation of parameterized constructor 
+        /// </summary>
+        [TestMethod]
+        [TestCategory("ParameterizedConstructor")]
+        public void ObjectCreationParameterizedConstructor()
+        {
+
+            Object obj;
+            
+            try
+            {
+                MoodAnalyserFactory moodAnalyse = new MoodAnalyserFactory();
+                obj = moodAnalyse.CreateMoodAnalyserParameterizedConstructor("MoodAnalyser.MoodAnalyserCheck", "MoodAnalyserCheck", "I am in a happy mood");
+            }
+            catch (CustomMoodAnalyser e)
+            {
+                throw new Exception(e.Message);
+            }
+            obj.Equals(macPC);
+        }
+        /// <summary>
+        /// TC2 - Object creation of parameterized constructor class not found exception
+        /// </summary>
+        [TestMethod]
+        [TestCategory("ParameterizedConstructorClassException")]
+        public void ObjectCreationParameterizedConstructorClassException()
+        {
+
+            Object obj;
+
+            try
+            {
+                MoodAnalyserFactory moodAnalyse = new MoodAnalyserFactory();
+                obj = moodAnalyse.CreateMoodAnalyserParameterizedConstructor("MoodAnalyser.MoodAnalyserCheckT", "MoodAnalyserCheckT", "I am in a happy mood");
+            }
+            catch (CustomMoodAnalyser e)
+            {
+                throw new Exception(e.Message);
+            }
+            obj.Equals(macPC);
+        }
+        /// <summary>
+        /// TC3 - Object creation of parameterized constructor class not found exception
+        /// </summary>
+        [TestMethod]
+        [TestCategory("ParameterizedConstructorClassException")]
+        public void ObjectCreationParameterizedConstructorCOnstructorException()
+        {
+
+            Object obj;
+
+            try
+            {
+                MoodAnalyserFactory moodAnalyse = new MoodAnalyserFactory();
+                obj = moodAnalyse.CreateMoodAnalyserParameterizedConstructor("MoodAnalyser.MoodAnalyserCheck", "MoodAnalyserChec", "I am in a happy mood");
+            }
+            catch (CustomMoodAnalyser e)
+            {
+                throw new Exception(e.Message);
+            }
+            obj.Equals(macPC);
+        }
+
     }
 }
