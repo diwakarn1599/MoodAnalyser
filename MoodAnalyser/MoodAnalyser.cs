@@ -7,6 +7,10 @@ namespace MoodAnalyser
     public class MoodAnalyserCheck
     {
         string message;
+        public MoodAnalyserCheck()
+        {
+            Console.WriteLine("Default Constructor is invoked using reflection");
+        }
         public MoodAnalyserCheck(string message)
         {
             this.message = message;

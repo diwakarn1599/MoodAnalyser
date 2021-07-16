@@ -1,12 +1,15 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MoodAnalyser;
+using System.Reflection;
+using System;
+
 
 namespace MoodAnalyserTestProject
 {
     [TestClass]
     public class UnitTest1
     {
-        MoodAnalyserCheck mac,Mac, macNull, macEmpty;
+        MoodAnalyserCheck mac,Mac, macNull, macEmpty,macObj;
         string msg;
         [TestInitialize]
         public void Setup()
@@ -16,6 +19,7 @@ namespace MoodAnalyserTestProject
             Mac = new MoodAnalyserCheck("im in sad mood");
             macNull = new MoodAnalyserCheck(null);
             macEmpty = new MoodAnalyserCheck(string.Empty);
+            macObj = new MoodAnalyserCheck();
         }
         //***************************************************HAPPY*****************************************************
         [TestMethod]
@@ -82,6 +86,27 @@ namespace MoodAnalyserTestProject
                 Assert.AreEqual(expected,ex.Message);
             }
             
+        }
+        //**************************************************Object***********************************************
+        [TestMethod]
+        [TestCategory("objectCreation")]
+        public void ObjectCreationUsingReflection()
+        {
+            
+            Object obj = null;
+           
+            try
+            {
+                MoodAnalyserFactory moodAnalyse = new MoodAnalyserFactory();
+                obj = moodAnalyse.CreateMoodAnalyserObject("MoodAnalyser.MoodAnalyserCheck", "MoodAnalyserCheck");
+
+            }
+            catch (CustomMoodAnalyser e)
+            {
+                throw new Exception(e.Message);
+            }
+            obj.Equals(macObj);
+
         }
     }
 }
