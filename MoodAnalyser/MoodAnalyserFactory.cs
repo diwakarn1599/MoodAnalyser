@@ -62,5 +62,22 @@ namespace MoodAnalyser
                 throw new CustomMoodAnalyser(CustomMoodAnalyser.ExceptionType.CONSTRUCTOR_NOT_FOUND, "Constructor not Found");
             }
         }
+
+        public string InvokeMethod(string methodName, string message)
+        {
+            try
+            {
+                Type type = typeof(MoodAnalyserCheck);
+                MethodInfo method = type.GetMethod(methodName);
+                MoodAnalyserFactory factory = new MoodAnalyserFactory();
+                object MoodAnalayserObject = factory.CreateMoodAnalyserParameterizedConstructor("MoodAnalyserCheck", "MoodAnalyserCheck", message);
+                object MethodObject = method.Invoke(MoodAnalayserObject, null);
+                return MethodObject.ToString();
+            }
+            catch (NullReferenceException e)
+            {
+                throw new CustomMoodAnalyser(CustomMoodAnalyser.ExceptionType.NO_SUCH_METHOD, "No such Method Error");
+            }
+        }
     }
 }

@@ -224,5 +224,58 @@ namespace MoodAnalyserTestProject
             obj.Equals(macPC);
         }
 
+        //**********************************************INVOKE METHOD***************************************************
+
+        [TestMethod]
+        [TestCategory("InvokeMethodReflection")]
+        public void InvokeMethodUsingDynamicObject()
+        {
+            ///<summary>
+            ///TC1 -  Method Invoked by object
+            ///</summary>  
+            //AAA method
+            string actual;
+            string message = "I am in a happy mood";
+            string methodName = "CheckMood";
+            string expected = "happy";
+
+
+            try
+            {
+                MoodAnalyserFactory ma = new MoodAnalyserFactory();
+                actual = ma.InvokeMethod(methodName, message);
+            }
+            catch (CustomMoodAnalyser e)
+            {
+                throw new Exception(e.Message);
+            }
+            actual.Equals(expected);
+        }
+
+        [TestMethod]
+        [TestCategory("InvokeMethodReflection")]
+        public void InvokeMethodUsingDynamicObjectMethodNotException()
+        {
+            ///<summary>
+            ///TC2 -  Method Invoked by object throws method not exception
+            ///</summary>  
+            //AAA method
+            string actual;
+            string message = "I am in a happy mood";
+            string methodName = "CheckMoo";
+            string expected = "happy";
+
+
+            try
+            {
+                MoodAnalyserFactory ma = new MoodAnalyserFactory();
+                actual = ma.InvokeMethod(methodName, message);
+            }
+            catch (CustomMoodAnalyser e)
+            {
+                throw new Exception(e.Message);
+            }
+            actual.Equals(expected);
+        }
     }
 }

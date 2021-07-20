@@ -12,7 +12,7 @@ namespace MoodAnalyser
         //Enum for excpetion types
         public enum ExceptionType
         {
-            NULL_EXCEPTION,EMPTY_EXCEPTION,CLASS_NOT_FOUND,CONSTRUCTOR_NOT_FOUND
+            NULL_EXCEPTION,EMPTY_EXCEPTION,CLASS_NOT_FOUND,CONSTRUCTOR_NOT_FOUND,NO_SUCH_METHOD
         }
 
         //parameterized constructor
